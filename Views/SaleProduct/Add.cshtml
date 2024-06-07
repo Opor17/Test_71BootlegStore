@@ -1,0 +1,152 @@
+﻿@using _71BootlegStore.ViewModels
+@model ProductManagementVM
+@{
+    ViewData["Title"] = "Sale Product";
+}
+
+<style>
+    .img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 60%;
+    }
+</style>
+
+<div class="content">
+
+    <h2 class="intro-y text-lg font-medium mt-10">
+        Sale Product
+    </h2>
+
+    <div class="container sm:px-10">
+        <div class="block xl:grid grid-cols-2 gap-4">
+            <div class="hidden xl:flex flex-col min-h-screen">
+                <div class="my-auto">
+                    <div class="mx-6 pb-8">
+                        <div class="fade-mode">
+                            @foreach (var productManagements in Model.ProductManagements)
+                            {
+                                <div>
+                                    <div>
+                                        <img alt="Midone - HTML Admin Template" src="@productManagements.Image" class="mt-5" width="500" height="1000" data-action="zoom" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden xl:flex flex-col min-h-screen">
+                <div class="hidden xl:flex flex-col min-h-screen">
+                    <div class="my-auto">
+                        <form id="frmAuthUser" method="post" enctype="multipart/form-data">
+                            @foreach (var productManagements in Model.ProductManagements)
+                            {
+                                <tr class="intro-x h-16">
+                                    <td class="whitespace-nowrap">@productManagements.Name</td>
+                                    <td class="whitespace-nowrap">
+                                        @if (@productManagements.Quantity <= 10)
+                                        {
+                                            <div>
+                                                <label class="text-danger">คงเหลือ @productManagements.Quantity ชิ้น</label>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <label>คงเหลือ @productManagements.Quantity ชิ้น</label>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td class="whitespace-nowrap">
+                                        @if (productManagements.Gender)
+                                        {
+                                            <div>ผู้ชาย</div>
+                                        }
+                                        else
+                                        {
+                                            <div>ผู้หญิง</div>
+                                        }
+                                    </td>
+                                    <td class="whitespace-nowrap">
+                                        <div>
+                                            ราคา @productManagements.Price
+                                        </div>
+                                    </td>
+                                    <td class="whitespace-nowrap">
+                                        <div>
+                                            สี @productManagements.Color
+                                        </div>
+                                    </td>
+                                    <td class="whitespace-nowrap">
+                                        ไซซ์ @productManagements.Size
+                                    </td>
+                                </tr>
+                                <div>
+                                    <label asp-for="@Model.Order.Quantity"
+                                       class="form-label col-span-12 md:col-span-2 xl:col-span-2 2xl:col-span-2 mr-0">
+                                        <span class="text-danger mr-1">*</span>@Html.LabelFor(m => m.Order.Quantity)
+                                    </label>
+                                </div>
+                                <div class="col-span-12 md:col-span-4 xl:col-span-4 2xl:col-span-4">
+                                        <select class="form-select" asp-for="@Model.Order.Quantity" required>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </select>
+                                        <span class="text-danger" asp-validation-for="@Model.Order.Quantity"></span>
+                                </div>
+
+                                <div class="flex justify-center flex-col md:flex-row gap-2 mt-5">
+                                    <a asp-route-id="@productManagements.Id" asp-controller="Home" asp-action="Index" class="btn border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">Cancel</a>
+                                    <button type="submit" class="btn btn-primary w-full md:w-52">ยืนยันการซื้อ</button>
+                                    <a data-tw-toggle="modal" data-tw-target="#superlarge-modal-size-preview" class="btn btn-primary w-full md:w-52">ชำระเงิน</a>
+                                    <div id="superlarge-modal-size-preview" class="modal" tabindex="-1" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-body p-10 text-center">
+                                                    <h2 class="intro-y text-lg font-medium mt-10">
+                                                        สแกน QR CODE
+                                                    </h2>
+                                                </div>
+                                                <div class="modal-body p-10 text-center">
+                                                    <img alt="Midone - HTML Admin Template" src="/images/QR_Payment.jpg" class="mt-5 img" width="400" height="800" />
+                                                </div>
+                                                <div class="px-5 pb-8 text-center"> <button type="button" data-tw-dismiss="modal" class="btn btn-primary w-24">Close</button> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        const breadcrumbs = [
+            {
+                "label": "Home",
+                "url": "javascript:;"
+            }
+        ];
+        activeMenu(breadcrumbs);
+
+        $(document).ready(function () {
+            
+        });
+
+    </script>
+}

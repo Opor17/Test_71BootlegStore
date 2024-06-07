@@ -1,0 +1,123 @@
+﻿@{
+    var masterData = new List<bool>
+    {
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_Authorize.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_Role.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_ProductManagement.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_News.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_Order.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_Shipping.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+    };
+
+    var PurchaseHistory = new List<bool>
+    {
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_PurchaseHistory.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+    };
+    
+    var ShippingUser = new List<bool>
+    {
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_ShippingUser.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+    };
+    
+    var Report = new List<bool>
+    {
+        (await AuthorizationService.AuthorizeAsync
+        (User, $"{PolicyTypeEnum.List_Report.PolicyTypeToString()} {PolicyValueEnum.PC}")).Succeeded,
+    };
+}
+
+<nav class="top-nav">
+    <ul>
+        <li>
+            <a asp-controller="Home" asp-action="Index" class="top-menu">
+                <div class="top-menu__icon"> <i data-lucide="home"></i> </div>
+                <div class="top-menu__title"> Home </div>
+            </a>
+        </li>
+        @if (masterData.FirstOrDefault(md => md == true))
+        {
+            <li>
+                <a href="javascript:;" class="top-menu">
+                    <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                    <div class="top-menu__title">
+                        Master Data
+                        <div class="top-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+                    </div>
+                </a>
+                <ul class="">
+                    <li>
+                        <a asp-controller="Authorize" asp-action="Index" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title"> Authorize </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Role" asp-action="Index" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title"> Role Management </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="ProductManagement" asp-action="Index" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title"> Product Management </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="News" asp-action="Index" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title"> News </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Order" asp-action="Index" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title"> Order </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Shipping" asp-action="Index" class="top-menu">
+                            <div class="top-menu__icon"> <i data-lucide="settings"></i> </div>
+                            <div class="top-menu__title"> Shipping </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
+        @if (PurchaseHistory.FirstOrDefault(md => md == true))
+        {
+            <li>
+                <a asp-controller="PurchaseHistory" asp-action="Index" class="top-menu">
+                    <div class="top-menu__icon"> <i data-lucide="rotate-cw"></i> </div>
+                    <div class="top-menu__title"> Purchase History </div>
+                </a>
+            </li>
+        }
+        @if (ShippingUser.FirstOrDefault(md => md == true))
+        {
+            <li>
+                <a asp-controller="ShippingUser" asp-action="Index" class="top-menu">
+                    <div class="top-menu__icon"> <i data-lucide="package"></i> </div>
+                    <div class="top-menu__title"> Shipping User </div>
+                </a>
+            </li>
+        }
+        @if (Report.FirstOrDefault(md => md == true))
+        {
+            <li>
+                <a asp-controller="Report" asp-action="Index" class="top-menu">
+                    <div class="top-menu__icon"> <i data-lucide="file-text"></i> </div>
+                    <div class="top-menu__title"> Report </div>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

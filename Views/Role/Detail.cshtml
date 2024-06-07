@@ -1,0 +1,59 @@
+﻿@using _71BootlegStore.ViewModels
+@model PermissionViewModel
+@{
+    ViewData["Title"] = "Role Permission Detail";
+}
+
+<div class="content">
+    <form id="frmData" method="post">
+        <div class="grid grid-cols-12 gap-6 mt-3">
+            <div class="intro-y box col-span-12 p-5 mt-3">
+                <h2 class="text-lg font-medium text-center">
+                    View Role
+                </h2>
+
+                <div class="text-center mt-5">
+                    <label asp-for="Role.Name"></label>
+                    <input type="text" asp-for="Role.Name" class="form-control w-52 ml-2">
+                    <span class="text-danger" asp-validation-for="Role.Name"></span>
+                </div>
+            </div>
+
+            <div class="col-span-12">
+                <partial name="_AssignPermission" />
+            </div>
+        </div>
+    </form>
+
+    <div class="flex justify-center flex-col md:flex-row gap-2 mt-5">
+        <a asp-area="WEB"
+           asp-controller="Role"
+           asp-action="Index"
+           class="btn border-slate-300 dark:border-darkmode-400 text-slate-500 w-full md:w-52">
+            Cancel
+        </a>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        const breadcrumbs = [
+            {
+                "label": "Master Data",
+                "url": "javascript:;"
+            },
+            {
+                "label": "Role Management",
+                "url": "javascript:;"
+            }
+        ];
+        activeMenu(breadcrumbs);
+
+        $(document).ready(function () {
+            $('input').prop('readonly', true);
+            $('input').prop('disabled', true);
+        });
+    </script>
+
+}

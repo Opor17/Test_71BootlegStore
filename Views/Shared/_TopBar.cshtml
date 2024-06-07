@@ -1,0 +1,89 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Identity
+@using Newtonsoft.Json;
+@inject IHttpContextAccessor HttpContextAccessor
+@inject SignInManager<ApplicationUser> _signInManager
+@inject UserManager<ApplicationUser> _userManager
+
+<div class="top-bar-boxed top-bar-boxed--top-menu h-[70px] md:h-[65px] z-[51] border-b border-white/[0.08] -mt-7 md:mt-0 -mx-3 sm:-mx-8 md:-mx-0 px-3 md:border-b-0 relative md:fixed md:inset-x-0 md:top-0 sm:px-8 md:px-10 md:pt-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent dark:md:from-darkmode-700">
+    <div class="h-full flex items-center">
+        <!-- BEGIN: Logo -->
+        <a class="logo -intro-x hidden md:flex xl:w-[180px] block" asp-action="Index" asp-controller="Home">
+            <img alt="Midone - HTML Admin Template" class="logo__image w-40" src="/images/71BootlegStore_Logo04.png">
+        </a>
+        <!-- END: Logo -->
+        <!-- BEGIN: Breadcrumb -->
+        <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
+            <ol class="breadcrumb breadcrumb-light">
+            </ol>
+        </nav>
+        <!-- END: Breadcrumb -->
+
+        <div class="intro-x dropdown mr-4 sm:mr-6">
+            <div class="col-span-6 sm:col-span-3 lg:col-span-2 xl:col-span-1">
+                <div class="dropdown-toggle notification notification--bullet cursor-pointer" role="button" aria-expanded="false" data-tw-toggle="dropdown">
+                    <a asp-controller="CartDetail" asp-action="Index" class="btn btn-primary shadow-md mr-2">
+                        <i data-lucide="shopping-cart" class="block mx-auto"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN: Account Menu -->
+        @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+        {
+            <div class="intro-x dropdown w-8 h-8">
+                <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110" role="button" aria-expanded="false" data-tw-toggle="dropdown">
+                    <img alt="Midone - HTML Admin Template" src="~/images/icon_user.png">
+                </div>
+                <div class="dropdown-menu w-56">
+                    <ul class="dropdown-content bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white">
+                        <li class="p-2">
+                            <div class="font-medium">@User.Identity?.Name</div>
+                            @if (User.IsInRole("SuperAdmin"))
+                            {
+                                <span>(SuperAdmin)</span>
+                            }
+                            else if (User.IsInRole("Admin"))
+                            {
+                                <span>(Admin)</span>
+                            }
+                            else if (User.IsInRole("Member"))
+                            {
+                                <span>(Member)</span>
+                            }
+                            else if (User.IsInRole("User"))
+                            {
+                                <span>(User)</span>
+                            }
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider border-white/[0.08]">
+                            <a asp-controller="SettingUser" asp-action="View" class="btn btn-primary shadow-md mr-2">
+                                <i data-lucide="user" class="block mx-auto mr-2"></i>
+                                View User
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider border-white/[0.08]">
+                            <a asp-controller="SettingUser" asp-action="Index" class="btn btn-primary shadow-md mr-2">
+                                <i data-lucide="user-plus" class="block mx-auto mr-2"></i>
+                                Edit User
+                            </a>
+                        </li>
+                        <li>
+                            <form id="frmLogout" asp-controller="Login" asp-action="Logout" method="post">
+                            </form>
+                            <a href="javascript:document.getElementById('frmLogout').submit();" class="dropdown-item hover:bg-white/5">
+                                <i data-lucide="toggle-right" class="w-4 h-4 mr-2"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        }
+
+        <!-- END: Account Menu -->
+    </div>
+</div>

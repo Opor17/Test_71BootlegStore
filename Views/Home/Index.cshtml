@@ -1,0 +1,81 @@
+﻿@using _71BootlegStore.ViewModels
+@model HomeVM
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="content content--top-nav">
+    <div class="mx-6 pb-8">
+        <div class="fade-mode">
+            @foreach (var news in Model.News)
+            {
+                <div>
+                    <div>
+                        <img alt="Midone - HTML Admin Template" src="@news.Image" class="mt-5 w-full h-40rem" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="my-2">
+        <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+                <label class="visually-hidden">Size</label>
+                <select class="form-select w-40" asp-for="@Model.Size">
+                    @foreach (var size in Model.Sizes)
+                    {
+                        <option>@size.Size</option>
+                    }
+                </select>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">
+            สินค้าทั้งหมด
+        </h2>
+    </div>
+    <div class="intro-y grid grid-cols-12 gap-6 mt-5">
+        <!-- BEGIN: Blog Layout -->
+        @foreach (var productManagements in Model.ProductManagements)
+        {
+            <div class="intro-y col-span-12 md:col-span-6 xl:col-span-4 box">
+                <div class="p-5">
+                    <div class="h-full w-full">
+                        <a asp-controller="SaleProduct" asp-action="Add" asp-route-id="@productManagements.Id">
+                            <img alt="Midone - HTML Admin Template" class="rounded-md" src="@productManagements.Image">
+                        </a>
+                    </div>
+                    <a class="block font-medium text-base mt-5">@productManagements.Name</a>
+                    <div class="text-slate-600 dark:text-slate-500 mt-2">
+                        ราคา @productManagements.Price 
+                        @if (productManagements.Gender)
+                        {
+                            <label>ผู้ชาย</label>
+                        }
+                        else
+                        {
+                            <label>ผู้หญิง</label>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- END: Blog Layout -->
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        const breadcrumbs = [
+            {
+                "label": "Home",
+                "url": "javascript:;"
+            }
+        ];
+        activeMenu(breadcrumbs);
+    </script>
+}

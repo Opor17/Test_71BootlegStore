@@ -1,0 +1,106 @@
+﻿@using _71BootlegStore.ViewModels
+@model PermissionViewModel
+
+<div id="claimfrm" class="intro-y box p-5">
+    <div class="border border-slate-200/60 rounded-md p-5">
+        <div class="font-medium text-base flex items-center border-b border-slate-200/60 pb-3">Assign @Model.PCClaimStore.ClaimValue</div>
+
+        <input asp-for="@Model.PCClaimStore.ClaimValue" value="@Model.PCClaimStore.ClaimValue" hidden>
+        <div class="mt-5">
+            <div class="form-check mr-2">
+                <input id="@Model.PCClaimStore.ClaimValue" class="all form-check-input" type="checkbox">
+                <label class="form-check-label" for="@Model.PCClaimStore.ClaimValue">Check All</label>
+            </div>
+
+            @if (Model.PCClaimStore.ClaimValue == "PC")
+            {
+                @* master data *@
+                <fieldset class="flex flex-col gap-3">
+                    <legend class="px-2">Master Data</legend>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-5 gap-3 mt-5">
+                        @* <div>Authorize</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsAuthorize.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsAuthorize[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsAuthorize[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsAuthorize[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>Role</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsRole.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsRole[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsRole[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsRole[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>ProductManagement</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsProductManagement.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsProductManagement[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsProductManagement[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsProductManagement[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>News</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsNews.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsNews[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsNews[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsNews[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>Order</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsOrder.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsOrder[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsOrder[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsOrder[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>Shipping</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsShipping.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsShipping[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsShipping[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsShipping[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>PurchaseHistory</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsPurchaseHistory.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsPurchaseHistory[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsPurchaseHistory[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsPurchaseHistory[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>ShippingUser</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsShippingUser.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsShippingUser[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsShippingUser[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsShippingUser[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+
+                        @* <div>Report</div> *@
+                        @for (int i = 0; i < Model.PCClaimStore.RoleClaimsReport.Count; i++)
+                        {
+                            <label asp-for="@Model.PCClaimStore.BoolsClaimsReport[i]" class="block flex border p-3 rounded-lg zoom-in">
+                                @Model.PCClaimStore.RoleClaimsReport[i]
+                                <input asp-for="@Model.PCClaimStore.BoolsClaimsReport[i]" class="form-check-input ml-auto" type="checkbox">
+                            </label>
+                        }
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>

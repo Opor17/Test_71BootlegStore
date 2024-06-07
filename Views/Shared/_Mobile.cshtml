@@ -1,0 +1,98 @@
+﻿<div class="mobile-menu md:hidden">
+    <div class="mobile-menu-bar">
+        <a href="" class="flex mr-auto">
+            <img alt="Midone - HTML Admin Template" class="w-48" src="~/images/71BootlegStore_Logo04.png>
+        </a>
+        <a href="javascript:;" id="mobile-menu-toggler"> <i data-lucide="bar-chart-2" class="w-8 h-8 transform -rotate-90"></i> </a>
+    </div>
+
+    <ul>
+        <li>
+            <a asp-controller="Home" asp-action="Index" class="side-menu">
+                <div class="side-menu__icon"> <i data-lucide="home"></i> </div>
+                <div class="side-menu__title"> Home </div>
+            </a>
+        </li>
+        <li>
+            <a asp-controller="SlideBanner" asp-action="Index" class="side-menu">
+                <div class="side-menu__icon"> <i data-lucide="image"></i> </div>
+                <div class="side-menu__title"> SlideBanner </div>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" class="side-menu">
+                <div class="side-menu__icon"> <i data-lucide="settings"></i> </div>
+                <div class="side-menu__title">
+                    Master Data
+                    <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+                </div>
+            </a>
+            <ul class="">
+                <li>
+                    <a asp-controller="Authorize" asp-action="Index" class="side-menu">
+                        <div class="side-menu__icon"> <i data-lucide="settings"></i> </div>
+                        <div class="side-menu__title"> Authorize </div>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Role" asp-action="Index" class="side-menu">
+                        <div class="side-menu__icon"> <i data-lucide="settings"></i> </div>
+                        <div class="side-menu__title"> Role Management </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;" class="side-menu">
+                <div class="side-menu__icon"> <i data-lucide="settings"></i> </div>
+                <div class="side-menu__title">
+                    Video Management
+                    <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+                </div>
+            </a>
+            <ul class="">
+                <li>
+                    <a asp-controller="Video" asp-action="Index" class="side-menu">
+                        <div class="side-menu__icon"> <i data-lucide="settings"></i> </div>
+                        <div class="side-menu__title"> Video </div>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Category" asp-action="Index" class="side-menu">
+                        <div class="side-menu__icon"> <i data-lucide="settings"></i> </div>
+                        <div class="side-menu__title"> Category Management </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a asp-controller="Course" asp-action="Index" class="side-menu">
+                <div class="side-menu__icon"> <i data-lucide="book"></i> </div>
+                <div class="side-menu__title"> Course </div>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;" class="side-menu">
+                <div class="side-menu__icon"> <i data-lucide="rewind"></i> </div>
+                <div class="side-menu__title">
+                    Report
+                    <div class="side-menu__sub-icon "> <i data-lucide="chevron-down"></i> </div>
+                </div>
+            </a>
+            <ul class="">
+                <li>
+                    <a asp-controller="Video" asp-action="Index" class="side-menu">
+                        <div class="side-menu__icon"> <i data-lucide="rewind"></i> </div>
+                        <div class="side-menu__title"> Video </div>
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Category" asp-action="Index" class="side-menu">
+                        <div class="side-menu__icon"> <i data-lucide="rewind"></i> </div>
+                        <div class="side-menu__title"> Category Management </div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

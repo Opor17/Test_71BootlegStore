@@ -1,0 +1,197 @@
+﻿@using _71BootlegStore.ViewModels
+@model List<OrdersUserViewModel>
+@{
+	ViewData["Title"] = "Shipping User";
+}
+<div class="content">
+
+	<h2 class="intro-y text-lg font-medium mt-10">
+		Shipping User
+	</h2>
+
+	<div class="grid grid-cols-12 gap-6 mt-5">
+		<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+			<div class="relative overflow-x-auto">
+				<table id="dataTable" class="table table-report -mt-2">
+					<thead>
+						<tr>
+							<th class="whitespace-nowrap">Id</th>
+							<th class="whitespace-nowrap">Tracking</th>
+							<th class="whitespace-nowrap">Name</th>
+							<th class="whitespace-nowrap">First Name</th>
+							<th class="whitespace-nowrap">UserName</th>
+							<th class="whitespace-nowrap">Image</th>
+							<th class="whitespace-nowrap">Quantity</th>
+							<th class="whitespace-nowrap">Gender</th>
+							<th class="whitespace-nowrap">Price</th>
+							<th class="whitespace-nowrap">Color</th>
+							<th class="whitespace-nowrap">Size</th>
+							<th class="whitespace-nowrap">Address</th>
+							<th class="whitespace-nowrap">Status</th>
+							<th class="whitespace-nowrap">ShippingStatus</th>
+							<th class="whitespace-nowrap">CreatedAt</th>
+							<th class="whitespace-nowrap">UpdatedAt</th>
+						</tr>
+					</thead>
+					<tbody>
+						@{
+							int key = 0;
+						}
+						@foreach (var orders in Model)
+						{
+							key++;
+							<tr class="intro-x h-16">
+								<td class="whitespace-nowrap">@key</td>
+								<td class="whitespace-nowrap">@orders.Tracking</td>
+								<td class="whitespace-nowrap">@orders.Name</td>
+								<td class="whitespace-nowrap">@orders.FirstName</td>
+								<td class="whitespace-nowrap">@orders.UserName</td>
+								<td class="whitespace-nowrap"><img alt="Midone - HTML Admin Template" data-action="zoom" src="@orders.Image" width="100" height="100" /></td>
+								<td class="whitespace-nowrap">@orders.Quantity</td>
+								<td class="whitespace-nowrap">
+									@if (orders.Gender)
+									{
+										<div>ผู้ชาย</div>
+									}
+									else
+									{
+										<div>ผู้หญิง</div>
+									}
+								</td>
+								<td class="whitespace-nowrap">@orders.Price</td>
+								<td class="whitespace-nowrap">@orders.Color</td>
+								<td class="whitespace-nowrap">@orders.Size</td>
+								<td class="whitespace-nowrap">@orders.Address</td>
+								<td class="whitespace-nowrap">
+									@if (orders.Status == "Waiting")
+									{
+										<div class="text-warning">@orders.Status</div>
+									}
+									else if (orders.Status == "Successed")
+									{
+										<div class="text-success">@orders.Status</div>
+									}
+									else if (orders.Status == "Cancelled")
+									{
+										<div class="text-danger">@orders.Status</div>
+									}
+								</td>
+								<td class="whitespace-nowrap">
+									@if (orders.ShippingStatus == "Out For Delivery")
+									{
+										<div class="text-warning">@orders.ShippingStatus</div>
+									}
+									else if (orders.ShippingStatus == "Delivered")
+									{
+										<div class="text-success">@orders.ShippingStatus</div>
+									}
+									else if (orders.ShippingStatus == "Delivery Cencelled") 
+									{
+										<div class="text-danger">@orders.ShippingStatus</div>
+									}
+									else if (orders.ShippingStatus == "")
+									{
+										<div>@orders.ShippingStatus</div>
+									}
+								</td>
+								<td class="whitespace-nowrap">@orders.CreatedAt.ToString("dd/MM/yyyy")</td>
+								<td class="whitespace-nowrap">@orders.UpdatedAt.ToString("dd/MM/yyyy")</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+	<script>
+		const breadcrumbs = [
+			{
+				"label": "Master Data",
+				"url": "javascript:;"
+			},
+			{
+				"label": "Shipping User",
+				"url": "javascript:;"
+			}
+
+		];
+		activeMenu(breadcrumbs);
+
+		$(document).ready(function () {
+			$('#dataTable').DataTable();
+
+			setTimeout(() => {
+				window.location.reload();
+			}, 100000);
+
+			// delete datatable item
+			$(document).on('click', '.js-delete', function () {
+				let itemId = $(this).attr('data-id');
+				let Image = $(this).attr('data-batch');
+				Swal.fire({
+					title: 'Are you sure?',
+					text: "You want to remove this Image ",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes, delete it!'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						deleteItem(itemId)
+					}
+				})
+			});
+			function deleteItem(id) {
+				$.ajax({
+					type: "DELETE",
+					url: "@Url.Action("DeleteItem")" + "/" + id,
+					success: function (data) {
+						if (data == 'success') {
+							window.location.reload();
+						}
+					},
+					error: function (error) {
+					},
+				});
+			}
+
+			// edit datatable item
+			let itemId;
+			var Images;
+			$(document).on('click', '.js-edit', function () {
+				itemId = $(this).attr('data-id');
+				Images = $(this).attr('data-batch');
+			});
+
+			$('.saveEdit').on('click', function () {
+				let formData = new FormData($('#frmData')[0]);
+				formData.append('Image', Images);
+				$.ajax({
+					type: "POST",
+					url: "@Url.Action("Save")" + "/" + itemId,
+					data: formData,
+					dataType: 'json',
+					processData: false,
+					contentType: false,
+					success: function (response) {
+						if (response == 'success') {
+							window.location.reload();
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						$('.field-validation-valid').text('');
+						for (const key in jqXHR.responseJSON) {
+							$('.field-validation-valid[data-valmsg-for="' + key + '"]').text(jqXHR.responseJSON[key][0]);
+						}
+					}
+				});
+			})
+
+		});
+	</script>
+}

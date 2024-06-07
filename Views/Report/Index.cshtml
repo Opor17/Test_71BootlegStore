@@ -1,0 +1,206 @@
+﻿@using _71BootlegStore.ViewModels
+@model ReportVM
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<div class="content">
+    <div class="intro-y box col-span-12 p-5 mt-3">
+        <h2 class="intro-y text-lg font-medium text-center">
+            Report
+        </h2>
+        <partial name="_ReportSelection" />
+
+    </div>
+
+    <div class="intro-y box col-span-12 p-5">
+        <div class="intro-y box col-span-12 p-5">
+            <div class="font-medium text-base flex items-center mb-5 text-primary">ยอดขาย</div>
+            <div class="relative overflow-x-auto">
+                <div class="relative overflow-x-auto">
+                    <table id="dataTables" class="table table-striped">
+                        <thead>
+                            <tr>
+                                @{
+                                    var total = 0;
+                                }
+                                @foreach (var ordersUserViewModels in Model.OrdersUserViewModels)
+                                {
+                                    total += ordersUserViewModels.Price;
+                                }
+
+                                <th class="whitespace-nowrap">ราคา @total บาท วัน @Model.FromDate.ToString("dd/MM/yyyy HH:mm:ss") ถึง @Model.ToDate.ToString("dd/MM/yyyy HH:mm:ss")</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro-y box col-span-12 p-5">
+        <div class="intro-y box col-span-12 p-5">
+            <div class="font-medium text-base flex items-center mb-5 text-primary">สินค้าขายดี</div>
+            <div class="relative overflow-x-auto">
+                <div class="relative overflow-x-auto">
+                    <table id="dataTables" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">Name</th>
+                                <th class="whitespace-nowrap">Image</th>
+                                <th class="whitespace-nowrap">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var bestSeallers in Model.BestSeallers)
+                            {
+                                <tr>
+                                    <td class="whitespace-nowrap">@bestSeallers.Name</td>
+                                    <td class="whitespace-nowrap"><img alt="Midone - HTML Admin Template" data-action="zoom" src="@bestSeallers.Image" width="100" height="100" /></td>
+                                    <td class="whitespace-nowrap">@bestSeallers.total</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro-y box col-span-12 p-5">
+        <div class="intro-y box col-span-12 p-5">
+            <div class="font-medium text-base flex items-center mb-5 text-primary">สินค้าขายไม่ดี</div>
+            <div class="relative overflow-x-auto">
+                <div class="relative overflow-x-auto">
+                    <table id="dataTabless" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-nowrap">Name</th>
+                                <th class="whitespace-nowrap">Image</th>
+                                <th class="whitespace-nowrap">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var worstsellerList in Model.WorstsellerList)
+                            {
+                                <tr>
+                                    <td class="whitespace-nowrap">@worstsellerList.Name</td>
+                                    <td class="whitespace-nowrap"><img alt="Midone - HTML Admin Template" data-action="zoom" src="@worstsellerList.Image" width="100" height="100" /></td>
+                                    <td class="whitespace-nowrap">@worstsellerList.total</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro-y box col-span-12 p-5">
+        <div class="intro-y box col-span-12 p-5">
+            <div class="font-medium text-base flex items-center mb-5 text-primary">Result</div>
+            <div class="relative overflow-x-auto">
+                <table id="dataTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="whitespace-nowrap">Tracking</th>
+                            <th class="whitespace-nowrap">Name</th>
+                            <th class="whitespace-nowrap">First Name</th>
+                            <th class="whitespace-nowrap">UserName</th>
+                            <th class="whitespace-nowrap">Quantity</th>
+                            <th class="whitespace-nowrap">Gender</th>
+                            <th class="whitespace-nowrap">Price</th>
+                            <th class="whitespace-nowrap">Color</th>
+                            <th class="whitespace-nowrap">Size</th>
+                            <th class="whitespace-nowrap">Shipping</th>
+                            <th class="whitespace-nowrap">Status</th>
+                            <th class="whitespace-nowrap">ShippingStatus</th>
+                            <th class="whitespace-nowrap">CreatedAt</th>
+                            <th class="whitespace-nowrap">UpdatedAt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int key = 0;
+                        }
+                        @foreach (var ordersUserViewModels in Model.OrdersUserViewModels)
+                        {
+                            key++;
+                            <tr class="intro-x h-16">
+                                <td class="whitespace-nowrap">@ordersUserViewModels.Tracking</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.Name</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.FirstName</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.UserName</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.Quantity</td>
+                                <td class="whitespace-nowrap">
+                                    @if (ordersUserViewModels.Gender)
+                                    {
+                                        <div>ผู้ชาย</div>
+                                    }
+                                    else
+                                    {
+                                        <div>ผู้หญิง</div>
+                                    }
+                                </td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.Price</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.Color</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.Size</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.Shipping</td>
+                                <td class="whitespace-nowrap">
+                                    @if (ordersUserViewModels.Status == "Waiting")
+                                    {
+                                        <div class="text-warning">@ordersUserViewModels.Status</div>
+                                    }
+                                    else if (ordersUserViewModels.Status == "Successed")
+                                    {
+                                        <div class="text-success">@ordersUserViewModels.Status</div>
+                                    }
+                                    else if (ordersUserViewModels.Status == "Cancelled")
+                                    {
+                                        <div class="text-danger">@ordersUserViewModels.Status</div>
+                                    }
+                                </td>
+                                <td class="whitespace-nowrap">
+                                    @if (ordersUserViewModels.ShippingStatus == "Out For Delivery")
+                                    {
+                                        <div class="text-warning">@ordersUserViewModels.ShippingStatus</div>
+                                    }
+                                    else if (ordersUserViewModels.ShippingStatus == "Delivered")
+                                    {
+                                        <div class="text-success">@ordersUserViewModels.ShippingStatus</div>
+                                    }
+                                    else if (ordersUserViewModels.ShippingStatus == "Delivery Cencelled")
+                                    {
+                                        <div class="text-danger">@ordersUserViewModels.ShippingStatus</div>
+                                    }
+                                    else if (ordersUserViewModels.ShippingStatus == "")
+                                    {
+                                        <div>@ordersUserViewModels.ShippingStatus</div>
+                                    }
+                                </td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                <td class="whitespace-nowrap">@ordersUserViewModels.UpdatedAt.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts
+    {
+        <script>
+
+            const breadcrumbs = [
+                {
+                    "label": "Report",
+                    "url": "javascript:;"
+                }
+            ];
+            activeMenu(breadcrumbs);
+
+            $('#dataTable').DataTable();
+            var exportAction = "@Url.Action("ReportOrderExcel")";
+            var printAction = "@Url.Action("ReportOrderPDF")";
+        </script>
+        <script src="~/js/report-script.js"></script>
+    }
